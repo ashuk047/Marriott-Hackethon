@@ -25,6 +25,7 @@ jobs:
          node-version: '20.x' # Specify the Node.js version you need
       - name: Install Dependencies
         run: npm install
+        run: npm install socket.io
    
       - name: Build And Deploy
         id: builddeploy
