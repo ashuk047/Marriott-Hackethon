@@ -2,15 +2,24 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const path = require('path');
 
 // Serve static files from the 'app' directory
-app.use(express.static('app'));
+// app.use(express.static('index.html'));
 
-app.get('/', (req, res) => {
-    res.send('Welcome!');
-});
+// app.get('/', (req, res) => {
+//     res.send('Welcome! zbhi');
+// });
 
+// app.use(express.static('public'));
+
+// Serve static files from the 'public' directory
 app.use(express.static('public'));
+
+// Serve 'index.html' when accessing the root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 
 io.on('connection', (socket) => {
