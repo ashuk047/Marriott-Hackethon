@@ -2,7 +2,7 @@
   "name": "marriott-hackathon",
   "version": "1.0.0",
   "description": "Hackethon related things ",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
