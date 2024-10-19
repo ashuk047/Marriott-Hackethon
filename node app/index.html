@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome! node!</title>
+    <title>Welcome! Node!</title>
     <style>
         /* Global Styles */
         body {
@@ -119,7 +119,7 @@
 </head>
 <body>
 
-<h1 id="guestName">Welcome! abhishek</h1>
+<h1 id="guestName">Welcome!</h1>
 
 <div class="form-container">    
     <form action="submit_guest_details.php" method="POST">
@@ -163,53 +163,46 @@
 <!-- Link to external JS file -->
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    const socket = io('http://localhost:4000/');
+    class GuestDetails {
+        constructor() {
+          //  this.socket = io();
+            this.roomName = 'exampleRoom';
+            this.guestDetails = {
+                guestName: "John Doe",
+                wifiPassword: "WiFi1234",
+                phoneNumbers: {
+                    reception: "+123-456-7890",
+                    roomService: "+123-456-7891",
+                    restaurant: "+123-456-7892",
+                    laundry: "+123-456-7893"
+                },
+                roomNumber: 102
+            };
+            this.init();
+        }
 
-    // Join a room
-    const roomName = 'exampleRoom';
-    socket.emit('joinRoom', roomName);
+        init() {
+            this.socket.emit('joinRoom', this.roomName);
+            this.socket.emit('message', { room: this.roomName, message: 'Hello, Room!' });
+            this.populateGuestDetails();
+        }
 
-    // Emit a message to the room
-    socket.emit('message', { room: roomName, message: 'Hello, Room!' });
+        populateGuestDetails() {
+            document.getElementById("guestName").textContent = `Welcome ${this.guestDetails.guestName}!`;
+            document.getElementById("wifiPassword").textContent = `Wi-Fi Password: ${this.guestDetails.wifiPassword}`;
+            document.getElementById("receptionNumber").textContent = `Reception: ${this.guestDetails.phoneNumbers.reception}`;
+            document.getElementById("roomServiceNumber").textContent = `Room Service: ${this.guestDetails.phoneNumbers.roomService}`;
+            document.getElementById("restaurantNumber").textContent = `Restaurant: ${this.guestDetails.phoneNumbers.restaurant}`;
+            document.getElementById("laundryNumber").textContent = `Laundry: ${this.guestDetails.phoneNumbers.laundry}`;
+            localStorage.setItem('roomNumber', this.guestDetails.roomNumber);
+            localStorage.setItem('guestName', this.guestDetails.guestName);
+        }
+    }
 
-
-// Function to populate guest details
-function populateGuestDetails() {
-    // Simulating guest data which would typically come from a server or database
-    const guestDetails = {
-        guestName: "John Doe", // Replace with actual guest name dynamically
-        wifiPassword: "WiFi1234", // Replace with the actual Wi-Fi password dynamically
-        phoneNumbers: {
-            reception: "+123-456-7890",
-            roomService: "+123-456-7891",
-            restaurant: "+123-456-7892",
-            laundry: "+123-456-7893"
-        },
-        roomNumber: 102
-    };
-
-    // Populating guest name
-    document.getElementById("guestName").textContent = `Welcome ${guestDetails.guestName}!`;
-
-    // Populating Wi-Fi password
-    document.getElementById("wifiPassword").textContent = `Wi-Fi Password: ${guestDetails.wifiPassword}`;
-
-    // Populating phone numbers
-    document.getElementById("receptionNumber").textContent = `Reception: ${guestDetails.phoneNumbers.reception}`;
-    document.getElementById("roomServiceNumber").textContent = `Room Service: ${guestDetails.phoneNumbers.roomService}`;
-    document.getElementById("restaurantNumber").textContent = `Restaurant: ${guestDetails.phoneNumbers.restaurant}`;
-    document.getElementById("laundryNumber").textContent = `Laundry: ${guestDetails.phoneNumbers.laundry}`;
-
-    // Storing room number in localStorage
-    localStorage.setItem('roomNumber', guestDetails.roomNumber);
-    localStorage.setItem("guestName", guestDetails.guestName);
-}
-
-// Call the function after the page has loaded
-window?.onload = populateGuestDetails;
-
-
+    document.addEventListener('DOMContentLoaded', () => {
+        new GuestDetails();
+    });
 </script>
- 
+
 </body>
 </html>
