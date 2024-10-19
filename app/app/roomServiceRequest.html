@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Room Service</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #007bff;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select, button, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        /* Button Styles */
+        .submit-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Back Home Link */
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Queries for Mobile */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Request Room Service</h1>
+        <form id="roomForm">
+            <!-- Room Number Fields (Only One Room Number) -->
+            <div class="form-group">
+                <label for="roomNumber">Room Number:</label>
+                <input type="text" name="roomNumber" id="roomNumber"  required>
+            </div>
+
+            <!-- Time Slot Selection -->
+            <div class="form-group">
+                <label for="timeSlot">Select a Time Slot:</label>
+                <select id="timeSlot" name="timeSlot" required>
+                    <option value="">--Choose a Time Slot--</option>
+                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+                    <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                    <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                    <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+                    <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                    <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Join Room</button>
+        </form>
+
+        <!-- Back Home Link -->
+        <a href="index.html" class="back-home">Back to Home</a>
+    </div>
+
+    <!-- External JavaScript -->'
+     <script src="/socket.io/socket.io.js"></script>'
+    <script src="roomServiceRequest.js"></script>
+
+</body>
+</html>

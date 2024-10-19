@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Button Styling */
+        .status-btn {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .status-btn.completed {
+            background-color: #28a745;
+        }
+
+        .status-btn.completed:hover {
+            background-color: #218838;
+        }
+
+        .status-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Remove (Cross) Button Styling */
+        .remove-btn {
+            padding: 10px 15px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const socket = io(); // Initialize socket.io
+        
+            // Listen for new tasks
+            socket.on('newTask', (task) => {
+                console.log(`New task received: Room ${task.room}, Message: ${task.message}`);
+        
+                // Update the admin UI with the new task by adding a row to the table
+                const tbody = document.querySelector('.request-table tbody');
+                const newRow = document.createElement('tr');
+        
+                newRow.innerHTML = `
+                    <td>${task.room}</td>
+                    <td>${task.guestName}</td> <!-- Assuming guest name is not provided in the task -->
+                    <td>${task.message}</td>
+                    <td><button class="status-btn" onclick="updateStatusFromSocket(${tbody.children.length})">Pending</button></td>
+                    <td><button class="remove-btn" onclick="removeRequestFromSocket(${tbody.children.length})">Remove</button></td>
+                `;
+        
+                tbody.appendChild(newRow);
+            });
+        });
+        
+        // Function to update request status from socket data
+        function updateStatusFromSocket(index) {
+            const tbody = document.querySelector('.request-table tbody');
+            const row = tbody.children[index];
+            const statusButton = row.querySelector('.status-btn');
+        
+            if (statusButton) {
+                statusButton.textContent = 'Completed';
+                statusButton.classList.add('completed');
+            }
+        }
+        
+        // Function to remove a request from socket data
+        function removeRequestFromSocket(index) {
+            const tbody = document.querySelector('.request-table tbody');
+            const row = tbody.children[index];
+        
+            if (row) {
+                tbody.removeChild(row);
+            }
+        }
+        
+        // Sample guestRequests array for initial rendering
+        let guestRequests = [
+            { roomNumber: 101, guestName: 'John Doe', request: 'Extra towels', status: 'Pending' },
+            { roomNumber: 102, guestName: 'Jane Smith', request: 'Late checkout', status: 'Pending' },
+            { roomNumber: 104, guestName: 'Alice Johnson', request: 'Room cleaning', status: 'Pending' }
+        ];
+        
+        // Function to render requests dynamically
+        function renderRequests() {
+            const tbody = document.querySelector('.request-table tbody');
+            if(tbody)
+            {
+                tbody.innerHTML = ''; // Clear existing rows
+            }
+           
+        
+            guestRequests.forEach((request, index) => {
+                const row = document.createElement('tr');
+        
+                row.innerHTML = `
+                    <td>${request.roomNumber}</td>
+                    <td>${request.guestName}</td>
+                    <td>${request.request}</td>
+                    <td><button class="status-btn ${request.status === 'Completed' ? 'completed' : ''}" onclick="updateStatus(${index})">${request.status}</button></td>
+                    <td><button class="remove-btn" onclick="removeRequest(${index})">Remove</button></td>
+                `;
+        
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Initial render of requests
+        renderRequests();
+    </script>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <div id="adminDisplay"></div>
+    <table class="request-table">
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Guest Name</th>
+                <th>Request</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be dynamically inserted here -->
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .menu-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-category {
+            margin-bottom: 20px;
+        }
+
+        .menu-category h2 {
+            color: #28a745;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 5px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .menu-item p {
+            margin: 0;
+        }
+
+        .price {
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Food Menu</h1>
+
+<div class="menu-container" id="menuContainer">
+    <!-- Menu items will be inserted here dynamically -->
+</div>
+
+<!-- Back to Guest Form -->
+<a href="index.html" class="back-link">Back</a>
+
+<script src="foodMenu.js"></script>
+</body>
+</html>

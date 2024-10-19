@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!!</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            color: #007bff;
+            margin-top: 20px;
+            font-size: 36px;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Labels and Inputs */
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+
+        input[readonly], .numbers-section, .wifi-section {
+            width: 100%;
+            padding: 12px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .wifi-password-row {
+            margin-bottom: 25px;
+        }
+
+        /* Links Styling */
+        .menu-link, .places-link, .room-service-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .menu-link:hover, .places-link:hover, .room-service-link:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+        }
+
+        /* Numbers Section Styling */
+        .numbers-section p, .wifi-section p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        /* Button Styling */
+        .buddy-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #ffffff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .buddy-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Media Queries for Mobile */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1 id="guestName">Welcome!</h1>
+
+<div class="form-container">    
+    <form action="submit_guest_details.php" method="POST">
+
+        <!-- Wi-Fi Password Section with Heading -->
+        <div class="form-group wifi-section">
+            <label for="wifi">Wi-Fi Password:</label>
+            <p id="wifiPassword"><strong>Wi-Fi Password:</strong></p>
+        </div>
+
+        <!-- Common Phone Numbers Section -->
+        <div class="form-group numbers-section">
+            <label>Common Phone Numbers:</label>
+            <p id="receptionNumber"><strong>Reception:</strong></p>
+            <p id="roomServiceNumber"><strong>Room Service:</strong></p>
+            <p id="restaurantNumber"><strong>Restaurant:</strong></p>
+            <p id="laundryNumber"><strong>Laundry:</strong></p>
+        </div>
+
+        <!-- Link to Request Room Service -->
+        <div>
+            <a href="roomServiceRequest.html" class="room-service-link">Request Room Service</a>
+        </div>
+
+        <!-- Link to Food Menu Page -->
+        <div>
+            <a href="foodMenu.html" class="menu-link">Food Menu</a>
+        </div>
+
+        <!-- Link to Nearby Places to Explore -->
+        <div>
+            <a href="nearbyPlaces.html" class="places-link">Nearby Places to Explore</a>
+        </div>
+
+        <!-- Link to My Buddy -->
+        <a href="guestMessageRequest.html" class="places-link">My Buddy</a>
+
+    </form>
+</div>
+
+<!-- Link to external JS file -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io('http://localhost:4000/');
+
+    // Join a room
+    const roomName = 'exampleRoom';
+    socket.emit('joinRoom', roomName);
+
+    // Emit a message to the room
+    socket.emit('message', { room: roomName, message: 'Hello, Room!' });
+
+
+// Function to populate guest details
+function populateGuestDetails() {
+    // Simulating guest data which would typically come from a server or database
+    const guestDetails = {
+        guestName: "John Doe", // Replace with actual guest name dynamically
+        wifiPassword: "WiFi1234", // Replace with the actual Wi-Fi password dynamically
+        phoneNumbers: {
+            reception: "+123-456-7890",
+            roomService: "+123-456-7891",
+            restaurant: "+123-456-7892",
+            laundry: "+123-456-7893"
+        },
+        roomNumber: 102
+    };
+
+    // Populating guest name
+    document.getElementById("guestName").textContent = `Welcome ${guestDetails.guestName}!`;
+
+    // Populating Wi-Fi password
+    document.getElementById("wifiPassword").textContent = `Wi-Fi Password: ${guestDetails.wifiPassword}`;
+
+    // Populating phone numbers
+    document.getElementById("receptionNumber").textContent = `Reception: ${guestDetails.phoneNumbers.reception}`;
+    document.getElementById("roomServiceNumber").textContent = `Room Service: ${guestDetails.phoneNumbers.roomService}`;
+    document.getElementById("restaurantNumber").textContent = `Restaurant: ${guestDetails.phoneNumbers.restaurant}`;
+    document.getElementById("laundryNumber").textContent = `Laundry: ${guestDetails.phoneNumbers.laundry}`;
+
+    // Storing room number in localStorage
+    localStorage.setItem('roomNumber', guestDetails.roomNumber);
+    localStorage.setItem("guestName", guestDetails.guestName);
+}
+
+// Call the function after the page has loaded
+window.onload = populateGuestDetails;
+
+
+</script>
+ 
+</body>
+</html>
