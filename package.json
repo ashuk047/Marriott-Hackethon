@@ -1,10 +1,10 @@
 {
   "name": "marriott-hackathon",
   "version": "1.0.0",
-  "description": "Hackethon related things ",
-  "main": "index.js",
+  "description": "Hackathon related things",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",

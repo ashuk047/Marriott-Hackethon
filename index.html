@@ -165,6 +165,18 @@
 <script>
     class GuestDetails {
         constructor() {
+            const express = require('express');
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+// Serve static files from the 'app' directory
+app.use(express.static('node app'));
+
+app.get('/', (req, res) => {
+    res.send('Welcome!');
+});
+
             this.socket = io();
             this.roomName = 'exampleRoom';
             this.guestDetails = {
