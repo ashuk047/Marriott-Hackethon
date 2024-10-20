@@ -161,11 +161,11 @@
 </div>
 
 <!-- Link to external JS file -->
-<script src="/socket.io/socket.io.js"></script>
+<script src="node_modules/socket.io/socket.io.js"></script>
 <script>
     class GuestDetails {
         constructor() {
-            const express = require('express');
+const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
