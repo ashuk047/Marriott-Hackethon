@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Room Service</title>
+    <title>Request Services</title>
     <style>
         /* Global Styles */
         body {
@@ -100,18 +100,29 @@
 <body>
 
     <div class="form-container">
-        <h1>Request Room Service</h1>
-        <form id="roomForm">
-            <!-- Room Number Fields (Only One Room Number) -->
+        <h1>Request Services</h1>
+        <form id="serviceForm">
+            <!-- Room Number Fields -->
             <div class="form-group">
                 <label for="roomNumber">Room Number:</label>
-                <input type="text" name="roomNumber" id="roomNumber"  required>
+                <input type="text" name="roomNumber" id="roomNumber" required>
             </div>
 
-            <!-- Time Slot Selection -->
+            <!-- Service Selection -->
             <div class="form-group">
+                <label for="serviceType">Select a Service:</label>
+                <select id="serviceType" name="serviceType" required>
+                    <option value="">--Choose a Service--</option>
+                    <option value="roomService">Room Service</option>
+                    <option value="waterBottle">Water Bottle</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Time Slot Selection (Initially Hidden) -->
+            <div class="form-group" id="timeSlotGroup" style="display: none;">
                 <label for="timeSlot">Select a Time Slot:</label>
-                <select id="timeSlot" name="timeSlot" required>
+                <select id="timeSlot" name="timeSlot">
                     <option value="">--Choose a Time Slot--</option>
                     <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
                     <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
@@ -125,16 +136,36 @@
                 </select>
             </div>
 
+            <!-- Other Service Text Box (Initially Hidden) -->
+            <div class="form-group" id="otherServiceGroup" style="display: none;">
+                <label for="otherService">Specify Other Service:</label>
+                <input type="text" id="otherService" name="otherService">
+            </div>
+
             <!-- Submit Button -->
-            <button type="submit">Join Room</button>
+            <button type="submit" class="submit-btn">Submit Request</button>
         </form>
 
         <!-- Back Home Link -->
         <a href="index.html" class="back-home">Back to Home</a>
     </div>
 
-    <!-- External JavaScript -->'
-     <script src="/socket.io/socket.io.js"></script>'
+    <script>
+        document.getElementById('serviceType').addEventListener('change', function () {
+            const timeSlotGroup = document.getElementById('timeSlotGroup');
+            const otherServiceGroup = document.getElementById('otherServiceGroup');
+            
+            timeSlotGroup.style.display = 'none';
+            otherServiceGroup.style.display = 'none';
+
+            if (this.value === 'roomService') {
+                timeSlotGroup.style.display = 'block';
+            } else if (this.value === 'other') {
+                otherServiceGroup.style.display = 'block';
+            }
+        });
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="roomServiceRequest.js"></script>
 
 </body>

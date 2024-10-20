@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest Message Request</title>
+    <link rel="stylesheet" href="aiChatBot.css">
     <style>
         /* Global Styles */
         body {
@@ -21,7 +22,7 @@
 
         h1 {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #007bff;
+            color: #000000;
             font-size: 32px;
             margin-bottom: 20px;
             text-align: center;
@@ -60,25 +61,25 @@
         }
 
         textarea {
-            height: 120px;
+            height: 50px;
         }
 
         /* Submit Button */
         .submit-btn {
             width: 100%;
             padding: 12px;
-            background-color: #007bff;
+            background-color: #000203;
             color: #ffffff;
             border: none;
             border-radius: 8px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: bold;  
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .submit-btn:hover {
-            background-color: #0056b3;
+            background-color: #ff0515;
         }
 
         /* Back to Home Link */
@@ -86,7 +87,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            color: #007bff;
+            color: #000306;
             font-size: 16px;
             text-decoration: none;
             font-weight: bold;
@@ -116,7 +117,7 @@
 
     <div class="form-container">
         <h1>Guest Message Request</h1>
-        <form action="submit_request.php" method="POST">
+        <form id="serviceForm">
             <!-- Room Number Field -->
             <div class="form-group">
                 <label for="roomNumber">Room Number:</label>
@@ -139,9 +140,31 @@
             <button type="submit" class="submit-btn">Submit Request</button>
         </form>
     </div>
+    <div class="chatBot" id="chatBot">
+        <header>
+            <h2>ChatBot</h2>
+            <span alt="Close" id="cross">X</span>
+        </header>
+        <ul class="chatbox" id="chatbox">
+            <!-- Initial chat messages removed -->
+        </ul>
+        <div class="chat-input">
+            <textarea id="textInput" rows="1" cols="30" placeholder="Enter a message..."></textarea>
+        </div>
+        <div class="button-container">
+            <button id="sendTextButton">Send</button>
+            <button id="clearButton">Clear</button>
+        </div>
+        <div class="button-container">
+            <button id="speakButton" class="circular-button">Speak</button>
+            <button id="stopButton" class="circular-button">Stop</button>
+            <button id="muteButton" class="circular-button stop-speech">Mute</button>
+        </div>
+    </div>
+    <script src="aiChatBot.js" defer></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <!-- Link to external JS files -->
-    <script src="guestInfo.js"></script>
     <script src="guestMessageRequest.js"></script>
 
 </body>

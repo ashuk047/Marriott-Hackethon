@@ -1,7 +1,8 @@
 // Initialize the socket connection
 function initializeSocket() {
     const socket = io(); // Initialize socket.io
-
+    // const roomNumber = localStorage.getItem("roomNumber");
+    // const guestName = localStorage.getItem("guestName");
     // Listen for messages from the staff
     socket.on('staffMessage', (data) => {
         console.log(`Received message in room ${data.room}: ${data.message}`);
@@ -13,35 +14,42 @@ function initializeSocket() {
 // Set up the form handling
 // Set up the form handling
 function setupForm(socket) {
-    // Retrieve room number from localStorage and set it in the input field
-    const roomNumber = localStorage.getItem('roomNumber');
-    if (roomNumber) {
-        document.getElementById("roomNumber").value = roomNumber;
-    }
-
-    // Add an event listener for the form submission
-    const form = document.getElementById("roomForm");
+    const form = document.getElementById("serviceForm");
     form.addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent the default form submission behavior
 
-        // Retrieve the guest name, room number, and time slot from the input fields
-        const guestName = localStorage.getItem('guestName');
+        // Retrieve the guest name and room number from the input fields
+        
+        const guestName=localStorage.getItem("guestName");
         const roomNumberInput = document.getElementById("roomNumber").value;
-        const timeSlot = document.getElementById("timeSlot").value;
+        const serviceType = document.getElementById("serviceType").value;
+        let message = '';
 
-        if (guestName && roomNumberInput && timeSlot) {
-            // Save the room number to localStorage
-            localStorage.setItem('roomNumber', roomNumberInput);
+        if (serviceType === 'roomService') {
+            const timeSlot = document.getElementById("timeSlot").value;
+            if (guestName && roomNumberInput && timeSlot) {
+                message = `Guest ${guestName} requesting room service for ${timeSlot}`;
+            }
+        } else if (serviceType === 'other') {
+            const otherService = document.getElementById("otherService").value;
+            if (guestName && roomNumberInput && otherService) {
+                message = `Guest ${guestName} requesting additional service: ${otherService}`;
+            }
+        } else if (serviceType === 'waterBottle') {
+            if (guestName && roomNumberInput) {
+                message = `Guest ${guestName} requesting a water bottle`;
+            }
+        }
 
-            // Emit the joinRoom event
-            socket.emit('joinRoom', roomNumberInput);
-
+        if (message) {
             // Emit the messageFromRoomToStaff event with guest name, room, and message details
             socket.emit('messageFromRoomToStaff', {
                 guestName: guestName,
                 room: roomNumberInput,
-                message: `Guest ${guestName} requesting room service for ${timeSlot}`
+                message: message
             });
+
+            console.log(`Message sent: ${message}`);
         }
     });
 }

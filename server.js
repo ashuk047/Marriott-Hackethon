@@ -2,15 +2,16 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const path = require('path');
 
-// Serve static files from the 'public' directory
+// Serve static files from the 'app' directory
+app.use(express.static('node app'));
+
+app.get('/', (req, res) => {
+    res.send('Welcome!');
+});
+
 app.use(express.static('public'));
 
-// Serve 'index.html' when accessing the root URL
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 io.on('connection', (socket) => {
     console.log('A user connected');
@@ -36,7 +37,7 @@ io.on('connection', (socket) => {
     
         // Create a task here. This could involve saving to a database, logging, etc.
         const task = {
-            guestName: data.guestName,
+            guestName:data.guestName,
             room: data.room,
             message: data.message,
             timestamp: new Date().toISOString()
@@ -61,6 +62,8 @@ io.on('connection', (socket) => {
     });
 });
 
+
+
 // Example function to get socket ID by user ID
 function getSocketIdByUserId(userId) {
     // Implement logic to get socket ID from user ID
@@ -68,8 +71,6 @@ function getSocketIdByUserId(userId) {
     return userId; // Placeholder
 }
 
-// Use the PORT environment variable, or default to port 8080
-const port = process.env.PORT || 8080;
-http.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
+http.listen(4000, () => {
+    console.log('Server is listening on port 4000');
 });
