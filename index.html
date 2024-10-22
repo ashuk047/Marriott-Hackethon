@@ -161,13 +161,14 @@
 </div>
 
 <!-- Link to external JS file -->
+<script src="https://cdn.socket.io/4.8.0/socket.io.min.js" integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd" crossorigin="anonymous"></script>
 <script src="index.js"></script>
 <script>
     class GuestDetails {
         constructor() {
 
 
-            this.socket = io('https://salmon-wave-05d2f6d0f.5.azurestaticapps.net/');
+            this.socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');
             this.roomName = 'exampleRoom';
             this.guestDetails = {
                 guestName: "John Doe",
