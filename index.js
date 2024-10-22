@@ -1,4 +1,8 @@
-this.socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');
+
+const httpServer = require("http").createServer();
+this.socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');(httpServer);
+
+
 this.socket.on('connection', (socket) => {
     console.log('A user connected');
 
