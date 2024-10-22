@@ -1,5 +1,5 @@
-
-io.on('connection', (socket) => {
+this.socket = io('https://salmon-wave-05d2f6d0f.5.azurestaticapps.net/');
+this.socket.on('connection', (socket) => {
     console.log('A user connected');
 
     // Handle room joining
