@@ -1,4 +1,4 @@
-this.socket = io('https://salmon-wave-05d2f6d0f.5.azurestaticapps.net/');
+this.socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');
 this.socket.on('connection', (socket) => {
     console.log('A user connected');
 
