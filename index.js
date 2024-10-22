@@ -1,6 +1,6 @@
 
-const httpServer = require("http").createServer();
-this.socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');(httpServer);
+//const httpServer = require("http").createServer();
+this.socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');
 
 
 this.socket.on('connection', (socket) => {
