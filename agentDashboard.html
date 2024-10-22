@@ -90,15 +90,15 @@
                 const tbody = document.querySelector('.request-table tbody');
                 const newRow = document.createElement('tr');
         
-                newRow.innerHTML = `
-                    <td>${task.room}</td>
-                    <td>${task.guestName}</td> <!-- Assuming guest name is not provided in the task -->
-                    <td>${task.message}</td>
+                newRow?.innerHTML = `
+                    <td>${task?.room}</td>
+                    <td>${task?.guestName}</td> 
+                    <td>${task?.message}</td>
                     <td><button class="status-btn" onclick="updateStatusFromSocket(${tbody.children.length})">Pending</button></td>
                     <td><button class="remove-btn" onclick="removeRequestFromSocket(${tbody.children.length})">Remove</button></td>
                 `;
         
-                tbody.appendChild(newRow);
+                tbody?.appendChild(newRow);
             });
         });
         
