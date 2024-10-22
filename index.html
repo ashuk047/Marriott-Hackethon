@@ -161,23 +161,13 @@
 </div>
 
 <!-- Link to external JS file -->
-<script src="node_modules/socket.io/socket.io.js"></script>
+<!-- <script src="node_modules/socket.io/socket.io.js"></script> -->
 <script>
     class GuestDetails {
         constructor() {
-const express = require('express');
-const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
 
-// Serve static files from the 'app' directory
-app.use(express.static('node app'));
 
-app.get('/', (req, res) => {
-    res.send('Welcome!');
-});
-
-            this.socket = io();
+            this.socket = io('https://salmon-wave-05d2f6d0f.5.azurestaticapps.net/');
             this.roomName = 'exampleRoom';
             this.guestDetails = {
                 guestName: "John Doe",
