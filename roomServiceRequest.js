@@ -1,6 +1,6 @@
 // Initialize the socket connection
 function initializeSocket() {
-    const socket = io(); // Initialize socket.io
+    const socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/'); // Initialize socket.io
     // const roomNumber = localStorage.getItem("roomNumber");
     // const guestName = localStorage.getItem("guestName");
     // Listen for messages from the staff

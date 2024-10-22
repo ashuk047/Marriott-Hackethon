@@ -76,10 +76,11 @@
             background-color: #ff0019;
         }
     </style>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd" crossorigin="anonymous"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const socket = io(); // Initialize socket.io
+            const socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/'); // Initialize socket.io
         
             // Listen for new tasks
             socket.on('newTask', (task) => {

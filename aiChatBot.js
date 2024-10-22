@@ -11,7 +11,7 @@ class AiChatBot {
         this.bindEvents();
     }
     initializeSocket() {
-        const socket = io(); // Initialize socket.io
+        const socket = io('https://marriott-hackethon2-ghgsambkddgaffg7.eastus2-01.azurewebsites.net/');// Initialize socket.io
     
         // Listen for messages from the staff
         socket.on('staffMessage', (data) => {
