@@ -89,16 +89,20 @@
                 // Update the admin UI with the new task by adding a row to the table
                 const tbody = document.querySelector('.request-table tbody');
                 const newRow = document.createElement('tr');
-        
-                newRow.innerHTML = `
-                    <td>${task?.room}</td>
-                    <td>${task?.guestName}</td> 
-                    <td>${task?.message}</td>
-                    <td><button class="status-btn" onclick="updateStatusFromSocket(${tbody.children.length})">Pending</button></td>
-                    <td><button class="remove-btn" onclick="removeRequestFromSocket(${tbody.children.length})">Remove</button></td>
-                `;
-        
-                tbody?.appendChild(newRow);
+        if(newRow){
+            newRow.innerHTML = `
+            <td>${task?.room}</td>
+            <td>${task?.guestName}</td> 
+            <td>${task?.message}</td>
+            <td><button class="status-btn" onclick="updateStatusFromSocket(${tbody.children.length})">Pending</button></td>
+            <td><button class="remove-btn" onclick="removeRequestFromSocket(${tbody.children.length})">Remove</button></td>
+        `;
+if(tbody){
+    tbody?.appendChild(newRow);
+}
+        }
+                
+                
             });
         });
         
@@ -125,11 +129,7 @@
         }
         
         // Sample guestRequests array for initial rendering
-        let guestRequests = [
-            { roomNumber: 101, guestName: 'John Doe', request: 'Extra towels', status: 'Pending' },
-            { roomNumber: 102, guestName: 'Jane Smith', request: 'Late checkout', status: 'Pending' },
-            { roomNumber: 104, guestName: 'Alice Johnson', request: 'Room cleaning', status: 'Pending' }
-        ];
+        let guestRequests = [];
         
         // Function to render requests dynamically
         function renderRequests() {
